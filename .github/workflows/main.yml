@@ -61,7 +61,7 @@ jobs:
         --el-extra-flag Sync.DownloadBodiesInFastSync=false \
         --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
         --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >> sedge.logs
-        sedge run -p . >> sedge.logs &
+        sedge run -p . >> sedge.logs
 
     - name: Wait for Nethermind sync
       run: |
