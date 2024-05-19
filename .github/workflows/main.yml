@@ -43,8 +43,8 @@ jobs:
 
     - name: Install Sedge
       run: |
-        curl -L https://github.com/sedge/sedge/releases/download/v1.0.0/sedge-linux-x64.tar.gz -o sedge.tar.gz
-        tar -xzf sedge.tar.gz
+        curl -L https://github.com/NethermindEth/sedge/releases/download/v1.3.2/sedge-v1.3.2-linux-amd64  --output sedge
+        sudo ls -l
         sudo mv sedge /usr/local/bin/sedge
         sudo chmod +x /usr/local/bin/sedge
         sedge --version
