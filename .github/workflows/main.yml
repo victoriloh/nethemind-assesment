@@ -1,0 +1,74 @@
+# .github/workflows/ci.yml
+name: NethermindTest
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Install Docker
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker.io
+
+    - name: Install Sedge
+      run: |
+        curl -LO https://github.com/nethermindeth/sedge/releases/latest/download/sedge-linux-amd64
+        chmod +x sedge-linux-amd64
+        sudo mv sedge-linux-amd64 /usr/local/bin/sedge
+
+    - name: Run Sedge to set up Nethermind
+      run: |
+        echo 'Running sedge...'
+        sedge deps install >> sedge.logs
+        sedge generate --logging none -p $HOME full-node \
+        --map-all --no-mev-boost --no-validator \
+        --network chiado -c lighthouse:sigp/lighthouse:latest \
+        -e nethermind:nethermindeth/nethermind:master \
+        --el-extra-flag Sync.NonValidatorNode=true \
+        --el-extra-flag Sync.DownloadBodiesInFastSync=false \
+        --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
+        --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >> sedge.logs
+        sedge run -p . >> sedge.logs &
+
+    - name: Wait for Nethermind sync
+      run: |
+        echo 'Waiting for Nethermind to sync...'
+        sleep 300 # Adjust sleep time as necessary
+        until [ "$(curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' localhost:8545 | jq -r '.result')" = "false" ]; do
+          echo 'Nethermind is still syncing...'
+          sleep 60
+        done
+        echo 'Nethermind is synced.'
+
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-maven
+
+    - name: Install dependencies
+      run: mvn install
+
+    - name: Run JSON-RPC verification tests
+      run: mvn -Dtest=JsonRpcVerificationTest test
+
+    - name: Run JSON-RPC benchmark tests
+      run: mvn -Dtest=JsonRpcBenchmarkTest test
+
+    - name: Run extended JSON-RPC tests
+      run: mvn -Dtest=JsonRpcExtendedTest test
