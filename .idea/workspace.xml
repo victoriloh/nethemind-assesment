@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2592e0bb-ce7e-49f2-8544-eea989e78494" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/JsonRpcVerificationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/nethermind/api/JsonRpcBenchmarkTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/nethermind/api/JsonRpcExtendedTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/nethermind/api/JsonRpcVerificationTest.java" afterDir="false" />
+    <list default="true" id="2592e0bb-ce7e-49f2-8544-eea989e78494" name="Changes" comment="- nethemind API test suite for Verification Test, Extended Test and Benchmark Test">
+      <change beforePath="$PROJECT_DIR$/src/main/java/JsonRpcVerificationTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +46,14 @@
       <option name="presentableId" value="Default" />
       <updated>1716049699635</updated>
     </task>
+    <task id="LOCAL-00001" summary="- nethemind API test suite for Verification Test, Extended Test and Benchmark Test">
+      <created>1716150817207</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716150817207</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -66,5 +66,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- nethemind API test suite for Verification Test, Extended Test and Benchmark Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="- nethemind API test suite for Verification Test, Extended Test and Benchmark Test" />
   </component>
 </project>
