@@ -68,7 +68,7 @@ jobs:
       run: |
         echo 'Waiting for Nethermind to sync...'
         sleep 300 # Adjust sleep time as necessary
-        until [ "$(curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' localhost:8545 | jq -r '.result')" = "false" ]; do
+        until [ "$(curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":0}' localhost:8545 | jq -r '.result')" = "false" ]; do
           echo 'Nethermind is still syncing...'
           sleep 60
         done
