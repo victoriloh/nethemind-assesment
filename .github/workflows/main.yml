@@ -47,7 +47,7 @@ jobs:
         sudo ls -l
         sudo mv sedge /usr/local/bin/sedge
         sudo chmod +x /usr/local/bin/sedge
-        sedge --version
+        sedge version
 
     - name: Run Sedge to set up Nethermind
       run: |
