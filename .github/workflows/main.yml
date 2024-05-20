@@ -35,20 +35,23 @@ jobs:
         sudo systemctl start docker
         sudo systemctl enable docker
 
-    - name: Install Nethermind
-      run: |
-        wget https://github.com/NethermindEth/nethermind/releases/download/1.13.3/nethermind-linux-amd64-1.13.3-2629bfb-20230309.zip
-        unzip nethermind-linux-amd64-1.13.3-2629bfb-20230309.zip -d nethermind
-        chmod +x nethermind/Nethermind.Runner
-        sudo mv nethermind /usr/local/bin/nethermind
-        nethermind/Nethermind.Runner --config mainnet --initPeers 50 --healthchecks
-
 
     - name: Install Docker Compose
       run: |
         sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         sudo chmod +x /usr/local/bin/docker-compose
         docker-compose --version
+
+    - name: Install Nethermind
+      run: |
+        # Get the latest Nethermind release download URL
+        NETHEMIND_VERSION=$(curl -s https://api.github.com/repos/NethermindEth/nethermind/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3)}')
+        wget https://github.com/NethermindEth/nethermind/releases/download/$NETHEMIND_VERSION/nethermind-linux-amd64-$NETHEMIND_VERSION.zip -O nethermind.zip
+        unzip nethermind.zip -d nethermind
+        chmod +x nethermind/Nethermind.Runner
+        sudo mv nethermind /usr/local/bin/nethermind
+        nohup nethermind/Nethermind.Runner --config mainnet --initPeers 50 --healthchecks
+        
 
     - name: Install Sedge
       run: |
