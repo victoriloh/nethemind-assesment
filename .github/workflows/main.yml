@@ -44,14 +44,9 @@ jobs:
 
     - name: Install Nethermind
       run: |
-        # Get the latest Nethermind release download URL
-        NETHEMIND_LATEST_RELEASE=$(curl -s https://api.github.com/repos/NethermindEth/nethermind/releases/latest | jq -r '.tag_name')
-        NETHEMIND_DOWNLOAD_URL="https://github.com/NethermindEth/nethermind/releases/download/$NETHEMIND_LATEST_RELEASE/nethermind-linux-amd64-$NETHEMIND_LATEST_RELEASE.zip"
-        wget $NETHEMIND_DOWNLOAD_URL -O nethermind.zip
-        unzip nethermind.zip -d nethermind
-        chmod +x nethermind/Nethermind.Runner
-        sudo mv nethermind /usr/local/bin/nethermind
-        nohup nethermind/Nethermind.Runner --config mainnet --initPeers 50 --healthchecks
+        sudo add-apt-repository ppa:nethermindeth/nethermind
+        sudo apt update
+        sudo apt install nethermind
         
 
     - name: Install Sedge
