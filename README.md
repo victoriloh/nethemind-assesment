@@ -174,9 +174,10 @@ jobs:
 
     - name: Run extended JSON-RPC tests
       run: mvn -Dtest=JsonRpcExtendedTest test
+```
 
 
-Future Improvements
+### Future Improvements
 
 Enhanced Error Handling: Implement more robust error handling mechanisms in the test scripts.
 Scalability: Optimize the test suite to handle larger loads and more parallel requests.
