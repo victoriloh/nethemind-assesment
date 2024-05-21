@@ -77,11 +77,11 @@ jobs:
 
     - name: Wait for Nethermind sync
       run: |
-        until curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' http://localhost:8545 | grep -q '"result":false'; do
+        until curl -s -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":0}' http://localhost:8545 | grep -q '"result":false'; do
           echo "Waiting for Nethermind to sync..."
           sleep 60
         done
-        echo "Nethermind is fully synced."
+        echo "Nethermind is fully synced." &
 
     - name: Cache Maven packages
       uses: actions/cache@v2
